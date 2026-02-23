@@ -9,16 +9,16 @@
 یک دستور: دانلود و اجرا. بار اول سؤال می‌پرسد، کانفیگ می‌سازد، بعد مانیتور را بالا می‌آورد. کانفیگ پیش‌فرضی وجود ندارد.
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/master/install.sh | bash
 ```
 
 لینک مستقیم اسکریپت نصب:  
-[https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/install.sh](https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/install.sh)
+[https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/master/install.sh](https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/master/install.sh)
 
 فایل‌ها در `~/backhul-swap` ذخیره می‌شوند. مسیر دیگر:
 
 ```bash
-INSTALL_DIR=/opt/backhul-swap curl -sSL https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/install.sh | bash
+INSTALL_DIR=/opt/backhul-swap curl -sSL https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/master/install.sh | bash
 ```
 
 ---

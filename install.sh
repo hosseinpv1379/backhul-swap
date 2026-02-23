@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Download backhul-swap and run setup wizard (create config only). Does not start the monitor.
-# Usage: curl -sSL https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/install.sh | bash
+# Usage: curl -sSL https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/master/install.sh | bash
 
 set -euo pipefail
 
-REPO_RAW="https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main"
+REPO_RAW="https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/master"
 INSTALL_DIR="${INSTALL_DIR:-$HOME/backhul-swap}"
 
 echo "backhul-swap: Installing to $INSTALL_DIR ..."
