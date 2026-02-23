@@ -6,7 +6,7 @@
 
 ## نصب با یک دستور
 
-اسکریپت نصب از GitHub دانلود می‌شود و بعد خودکار اجرا می‌شود (اول بار ویزارد تنظیمات، بعد مانیتور):
+اسکریپت نصب فایل‌ها را دانلود می‌کند و **فقط ویزارد تنظیمات** را اجرا می‌کند؛ از کاربر سؤال می‌پرسد و `config.yml` را می‌سازد. هیچ چیز دیگری خودکار اجرا نمی‌شود. برای شروع مانیتور بعداً خودتان `run.sh` را اجرا کنید.
 
 ```bash
 curl -sSL https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/install.sh | bash
@@ -34,23 +34,7 @@ cd backhul-swap
 
 ## نحوه اجرا
 
-### روش ۱: یک اسکریپت (پیشنهادی)
-
-اول بار که `config.yml` وجود نداشته باشد، ویزارد تنظیمات اجرا می‌شود؛ بعد مانیتور شروع می‌شود:
-
-```bash
-bash run.sh
-```
-
-با کانفیگ دلخواه:
-
-```bash
-bash run.sh /path/to/config.yml
-```
-
-### روش ۲: دو مرحله
-
-**۱. تنظیمات (یک بار):**
+**۱. حتماً اول تنظیمات:** از کاربر سؤال می‌پرسد و `config.yml` را می‌سازد (با نصب یک‌دستوری همین کار انجام می‌شود؛ وگرنه دستی):
 
 ```bash
 bash setup.sh
@@ -58,13 +42,19 @@ bash setup.sh
 
 در ویزارد تعداد سرویس‌ها، نام سرویس، مسیر فایل toml، IP پینگ و role را وارد کنید. خروجی در `config.yml` ذخیره می‌شود.
 
-**۲. اجرای مانیتور:**
+**۲. اجرای مانیتور (بعد از ساخته شدن کانفیگ):**
 
 ```bash
-bash monitor-and-failover.sh
+bash run.sh
 ```
 
-یا با کانفیگ مشخص:
+یا با کانفیگ دلخواه:
+
+```bash
+bash run.sh /path/to/config.yml
+```
+
+یا مستقیم:
 
 ```bash
 bash monitor-and-failover.sh config.yml
@@ -88,8 +78,8 @@ nohup bash run.sh > monitor.log 2>&1 &
 
 | فایل | توضیح | لینک مستقیم |
 |------|--------|--------------|
-| `install.sh` | نصب خودکار + دانلود و اجرا | [install.sh](https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/install.sh) |
-| `run.sh` | نقطه ورود؛ در صورت نبودن کانفیگ، setup و بعد مانیتور | [run.sh](https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/run.sh) |
+| `install.sh` | دانلود فایل‌ها + فقط ویزارد setup (ساخت کانفیگ)، بدون اجرای مانیتور | [install.sh](https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/install.sh) |
+| `run.sh` | اجرای مانیتور (بعد از وجود داشتن config.yml) | [run.sh](https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/run.sh) |
 | `setup.sh` | ویزارد تعاملی برای ساخت/ویرایش `config.yml` | [setup.sh](https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/setup.sh) |
 | `monitor-and-failover.sh` | مانیتور پینگ و تعویض پروفایل + ریستارت سرویس | [monitor-and-failover.sh](https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/monitor-and-failover.sh) |
 

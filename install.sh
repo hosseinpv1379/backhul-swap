@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install and run backhul-swap from GitHub (main branch).
+# Download backhul-swap and run setup wizard (create config only). Does not start the monitor.
 # Usage: curl -sSL https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/install.sh | bash
 
 set -euo pipefail
@@ -7,7 +7,7 @@ set -euo pipefail
 REPO_RAW="https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main"
 INSTALL_DIR="${INSTALL_DIR:-$HOME/backhul-swap}"
 
-echo "backhul-swap: Installing to $INSTALL_DIR (from branch main) ..."
+echo "backhul-swap: Installing to $INSTALL_DIR ..."
 mkdir -p "$INSTALL_DIR"
 cd "$INSTALL_DIR"
 
@@ -24,6 +24,8 @@ for f in run.sh setup.sh monitor-and-failover.sh; do
   chmod +x "$f"
 done
 
-echo "Done. Starting run.sh ..."
+echo "Done. Running setup wizard to create config..."
 echo "---"
-exec bash "$INSTALL_DIR/run.sh" "$@"
+bash "$INSTALL_DIR/setup.sh"
+echo ""
+echo "To start the monitor later, run: bash $INSTALL_DIR/run.sh"
