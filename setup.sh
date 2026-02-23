@@ -61,6 +61,26 @@ validate_ip() {
   return 1
 }
 
+# Folder where backhaul toml configs live (user copies paths from here)
+BACKHAUL_CORE_DIR="/root/backhaul-core"
+
+# List toml files in BACKHAUL_CORE_DIR so user can copy path
+list_toml_configs() {
+  if [[ ! -d "$BACKHAUL_CORE_DIR" ]]; then
+    warn "Folder $BACKHAUL_CORE_DIR does not exist. Enter path manually."
+    return
+  fi
+  echo -e "  ${BOLD}Contents of ${BACKHAUL_CORE_DIR}:${RESET}"
+  local list
+  list=$(ls -1 "$BACKHAUL_CORE_DIR"/*.toml 2>/dev/null || true)
+  if [[ -n "$list" ]]; then
+    echo "$list" | head -50 | while read -r f; do echo "    $f"; done
+  else
+    echo "    (no .toml files found)"
+  fi
+  echo ""
+}
+
 # ─── Banner ───────────────────────────────────────────────────────────────────
 clear
 echo -e "${BOLD}${CYAN}"
@@ -132,8 +152,9 @@ for (( i=1; i<=count; i++ )); do
   ask "Systemd service name to restart" "backhaul-${name}.service"
   service_name="$REPLY"
 
-  # ── Config file path ──────────────────────────────────────────────────────
-  ask "Path to the .toml config file (profile bip<->tcp is swapped here)" "/root/backhaul-core/${name}.toml"
+  # ── Config file path (from /root/backhaul-core/) ───────────────────────────
+  list_toml_configs
+  ask "Path to .toml config (copy from list above, or enter path)" "${BACKHAUL_CORE_DIR}/${name}.toml"
   filename="$REPLY"
 
   # ── Ping IP ───────────────────────────────────────────────────────────────
