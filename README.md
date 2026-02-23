@@ -4,7 +4,26 @@
 
 ---
 
-## نصب
+## نصب با یک دستور (خودکار از برنچ main)
+
+اسکریپت نصب از GitHub دانلود می‌شود و بعد خودکار اجرا می‌شود (اول بار ویزارد تنظیمات، بعد مانیتور):
+
+```bash
+curl -sSL https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/install.sh | bash
+```
+
+**لینک مستقیم اسکریپت نصب:**  
+[https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/install.sh](https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/install.sh)
+
+فایل‌ها در `~/backhul-swap` ذخیره می‌شوند. برای مسیر دیگر:
+
+```bash
+INSTALL_DIR=/opt/backhul-swap curl -sSL https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/install.sh | bash
+```
+
+---
+
+## نصب با Git
 
 ```bash
 git clone https://github.com/hosseinpv1379/backhul-swap.git
@@ -75,17 +94,19 @@ nohup bash run.sh > monitor.log 2>&1 &
 
 ---
 
-## فایل‌ها
+## فایل‌ها و لینک اسکریپت‌ها (برنچ main)
 
-| فایل | توضیح |
-|------|--------|
-| `run.sh` | نقطه ورود: در صورت نبودن کانفیگ، setup را اجرا می‌کند و بعد مانیتور را شروع می‌کند |
-| `setup.sh` | ویزارد تعاملی برای ساخت/ویرایش `config.yml` |
-| `monitor-and-failover.sh` | مانیتور پینگ و تعویض پروفایل + ریستارت سرویس |
-| `config.yml` | تنظیمات (تعداد سرویس‌ها، cooldown، و برای هر سرویس: نام، unit، فایل toml، IP پینگ، role) |
+| فایل | توضیح | لینک مستقیم |
+|------|--------|--------------|
+| `install.sh` | نصب خودکار + دانلود و اجرا | [install.sh](https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/install.sh) |
+| `run.sh` | نقطه ورود؛ در صورت نبودن کانفیگ، setup و بعد مانیتور | [run.sh](https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/run.sh) |
+| `setup.sh` | ویزارد تعاملی برای ساخت/ویرایش `config.yml` | [setup.sh](https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/setup.sh) |
+| `monitor-and-failover.sh` | مانیتور پینگ و تعویض پروفایل + ریستارت سرویس | [monitor-and-failover.sh](https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/monitor-and-failover.sh) |
+
+فایل `config.yml` بعد از اجرای setup ساخته می‌شود.
 
 ---
 
 ## برنچ
 
-استفاده از برنچ **main**: بعد از clone با `git checkout main` روی همین برنچ باشید.
+همه لینک‌های بالا از برنچ **main** هستند. بعد از clone با `git checkout main` روی همین برنچ باشید.
