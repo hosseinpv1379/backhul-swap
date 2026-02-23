@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Start the tunnel monitor. Config must exist (run setup.sh first to create it).
+# One entry point: if no config, run setup wizard then start monitor. Otherwise start monitor.
 
 set -euo pipefail
 
@@ -9,9 +9,15 @@ cd "$SCRIPT_DIR"
 CONFIG_FILE="${1:-config.yml}"
 
 if [[ ! -f "$CONFIG_FILE" ]]; then
-  echo "Config not found. Run setup first to create config.yml:"
-  echo "  bash setup.sh"
-  exit 1
+  echo "No config yet. Running setup (questions → config.yml) ..."
+  bash "$SCRIPT_DIR/setup.sh"
+  if [[ ! -f "$CONFIG_FILE" ]]; then
+    echo "Setup did not create config. Exiting."
+    exit 1
+  fi
+  echo ""
+  echo "Starting monitor..."
+  echo "---"
 fi
 
 exec bash "$SCRIPT_DIR/monitor-and-failover.sh" "$CONFIG_FILE"

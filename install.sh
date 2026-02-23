@@ -24,8 +24,6 @@ for f in run.sh setup.sh monitor-and-failover.sh; do
   chmod +x "$f"
 done
 
-echo "Done. Running setup wizard to create config..."
+echo "Done. Starting (first time: questions → config → monitor)..."
 echo "---"
-bash "$INSTALL_DIR/setup.sh"
-echo ""
-echo "To start the monitor later, run: bash $INSTALL_DIR/run.sh"
+exec bash "$INSTALL_DIR/run.sh"
