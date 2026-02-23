@@ -64,13 +64,30 @@ validate_ip() {
 # Folder where backhaul toml configs live (user copies paths from here)
 BACKHAUL_CORE_DIR="/root/backhaul-core"
 
+# List systemd services whose name contains "backhaul" so user can copy
+list_backhaul_services() {
+  echo -e "  ${BOLD}Backhaul-related systemd services:${RESET}"
+  if command -v systemctl &>/dev/null; then
+    local list
+    list=$(systemctl list-unit-files --type=service --no-pager --no-legend 2>/dev/null | awk '{print $1}' | grep -i backhaul || true)
+    if [[ -n "$list" ]]; then
+      echo "$list" | head -50 | while read -r s; do echo "    $s"; done
+    else
+      echo "    (none found; list-unit-files or grep backhaul)"
+    fi
+  else
+    echo "    (systemctl not available)"
+  fi
+  echo ""
+}
+
 # List toml files in BACKHAUL_CORE_DIR so user can copy path
 list_toml_configs() {
   if [[ ! -d "$BACKHAUL_CORE_DIR" ]]; then
     warn "Folder $BACKHAUL_CORE_DIR does not exist. Enter path manually."
     return
   fi
-  echo -e "  ${BOLD}Contents of ${BACKHAUL_CORE_DIR}:${RESET}"
+  echo -e "  ${BOLD}Toml configs in ${BACKHAUL_CORE_DIR}:${RESET}"
   local list
   list=$(ls -1 "$BACKHAUL_CORE_DIR"/*.toml 2>/dev/null || true)
   if [[ -n "$list" ]]; then
@@ -117,6 +134,11 @@ ok "Cooldown: ${cooldown}s"
 # ─── Number of services ───────────────────────────────────────────────────────
 section "Services"
 info "Each service = one tunnel pair (Iran server ↔ Foreign server)."
+echo ""
+echo -e "  ${BOLD}On this system (copy names/paths when asked):${RESET}"
+echo ""
+list_backhaul_services
+list_toml_configs
 
 while true; do
   ask "How many services do you want to monitor?" "1"
@@ -148,8 +170,9 @@ for (( i=1; i<=count; i++ )); do
     err "Name must contain only letters, digits, underscores, or dashes."
   done
 
-  # ── Systemd service name ──────────────────────────────────────────────────
-  ask "Systemd service name to restart" "backhaul-${name}.service"
+  # ── Systemd service name (show backhaul services on system) ───────────────
+  list_backhaul_services
+  ask "Systemd service name to restart (copy from list above)" "backhaul-${name}.service"
   service_name="$REPLY"
 
   # ── Config file path (from /root/backhaul-core/) ───────────────────────────
