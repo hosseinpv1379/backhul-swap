@@ -4,7 +4,7 @@
 
 ---
 
-## نصب با یک دستور (خودکار از برنچ main)
+## نصب با یک دستور
 
 اسکریپت نصب از GitHub دانلود می‌شود و بعد خودکار اجرا می‌شود (اول بار ویزارد تنظیمات، بعد مانیتور):
 
@@ -28,17 +28,7 @@ INSTALL_DIR=/opt/backhul-swap curl -sSL https://raw.githubusercontent.com/hossei
 ```bash
 git clone https://github.com/hosseinpv1379/backhul-swap.git
 cd backhul-swap
-git checkout main
 ```
-
-اگر ریپو فقط برنچ `master` داشت، برنچ `main` را همین‌جا بساز و به GitHub پوش کن:
-
-```bash
-git checkout -b main
-git push -u origin main
-```
-
-بعد در GitHub: **Settings → General → Default branch** را روی `main` بگذار.
 
 ---
 
@@ -94,7 +84,7 @@ nohup bash run.sh > monitor.log 2>&1 &
 
 ---
 
-## فایل‌ها و لینک اسکریپت‌ها (برنچ main)
+## فایل‌ها و لینک اسکریپت‌ها
 
 | فایل | توضیح | لینک مستقیم |
 |------|--------|--------------|
@@ -104,9 +94,3 @@ nohup bash run.sh > monitor.log 2>&1 &
 | `monitor-and-failover.sh` | مانیتور پینگ و تعویض پروفایل + ریستارت سرویس | [monitor-and-failover.sh](https://raw.githubusercontent.com/hosseinpv1379/backhul-swap/main/monitor-and-failover.sh) |
 
 فایل `config.yml` بعد از اجرای setup ساخته می‌شود.
-
----
-
-## برنچ
-
-همه لینک‌های بالا از برنچ **main** هستند. بعد از clone با `git checkout main` روی همین برنچ باشید.
